@@ -28,10 +28,10 @@ public interface EntityModels {
     PolyModelInstance<DrifterModel> DRIFTLET = create(DrifterModel::new, DrifterModel.createDriftletLayer(), Enderscape.id("entity/drifter/driftlet"));
 
     Map<ResourceKey<RubblemiteVariant>, PolyModelInstance<RubblemiteModel>> RUBBLEMITE = Util.make(new HashMap<>(), m -> {
-        var instance = create(RubblemiteModel::new, RubblemiteModel.createLayer(), EnderscapeRubblemiteVariants.DEFAULT.identifier().withPrefix("entity/rubblemite/"));
+        var instance = create(RubblemiteModel::new, RubblemiteModel.createLayer(), EnderscapeRubblemiteVariants.DEFAULT.location().withPrefix("entity/rubblemite/"));
         m.put(EnderscapeRubblemiteVariants.DEFAULT, instance);
         for (var variant : EnderscapeRubblemiteVariants.RUBBLEMITE_VARIANTS) {
-            m.put(variant, withTexture(instance, variant.identifier().withPrefix("entity/rubblemite/")));
+            m.put(variant, withTexture(instance, variant.location().withPrefix("entity/rubblemite/")));
         }
     });
     PolyModelInstance<RustleModel> RUSTLE = create(RustleModel::new, RustleModel.createLayer(), Enderscape.id("entity/rustle/rustle"));
