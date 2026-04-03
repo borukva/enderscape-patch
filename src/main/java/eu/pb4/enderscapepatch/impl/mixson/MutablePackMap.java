@@ -5,13 +5,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.resources.Resource;
 
-public record MutablePackMap(PackResources pack, PackType type, Map<Identifier, Resource> overrides) implements Map<Identifier, Resource> {
+public record MutablePackMap(PackResources pack, PackType type, Map<ResourceLocation, Resource> overrides) implements Map<ResourceLocation, Resource> {
     @Override
     public int size() {
         return 0;
@@ -24,7 +24,7 @@ public record MutablePackMap(PackResources pack, PackType type, Map<Identifier, 
 
     @Override
     public boolean containsKey(Object key) {
-        return key instanceof Identifier identifier && this.pack.getResource(type, identifier) != null || this.overrides.containsKey(key);
+        return key instanceof ResourceLocation identifier && this.pack.getResource(type, identifier) != null || this.overrides.containsKey(key);
     }
 
     @Override
@@ -36,7 +36,7 @@ public record MutablePackMap(PackResources pack, PackType type, Map<Identifier, 
     public Resource get(Object key) {
         if (this.overrides.containsKey(key)) return this.overrides.get(key);
 
-        if (key instanceof Identifier identifier) {
+        if (key instanceof ResourceLocation identifier) {
             return new Resource(this.pack, this.pack.getResource(PackType.CLIENT_RESOURCES, identifier));
         }
         return null;
@@ -44,7 +44,7 @@ public record MutablePackMap(PackResources pack, PackType type, Map<Identifier, 
 
     @Nullable
     @Override
-    public Resource put(Identifier key, Resource value) {
+    public Resource put(ResourceLocation key, Resource value) {
         return this.overrides.put(key, value);
     }
 
@@ -54,7 +54,7 @@ public record MutablePackMap(PackResources pack, PackType type, Map<Identifier, 
     }
 
     @Override
-    public void putAll(@NotNull Map<? extends Identifier, ? extends Resource> m) {
+    public void putAll(@NotNull Map<? extends ResourceLocation, ? extends Resource> m) {
         overrides.putAll(m);
     }
 
@@ -65,7 +65,7 @@ public record MutablePackMap(PackResources pack, PackType type, Map<Identifier, 
 
     @NotNull
     @Override
-    public Set<Identifier> keySet() {
+    public Set<ResourceLocation> keySet() {
         var set = new HashSet<>(overrides.keySet());
         findResources(type, "minecraft", (id, file) -> {
             set.add(id);
@@ -87,8 +87,8 @@ public record MutablePackMap(PackResources pack, PackType type, Map<Identifier, 
 
     @NotNull
     @Override
-    public Set<Entry<Identifier, Resource>> entrySet() {
-        var set = new HashSet<Entry<Identifier, Resource>>();
+    public Set<Entry<ResourceLocation, Resource>> entrySet() {
+        var set = new HashSet<Entry<ResourceLocation, Resource>>();
         findResources(type, "minecraft", (id, file) -> {
             set.add(Map.entry(id, new Resource(pack, file)));
         });

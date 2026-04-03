@@ -19,7 +19,7 @@ import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelAsset;
 import eu.pb4.polymer.resourcepack.extras.api.format.model.ModelElement;
 import it.unimi.dsi.fastutil.floats.FloatList;
 import net.bunten.enderscape.Enderscape;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -97,7 +97,7 @@ public class ResourcePackGenerator {
                     builder.addData(AssetPaths.model("enderscape-patch", parentId.getPath() + suffix) + ".json",
                             ModelModifiers.expandModelAndRotateUVLocked(parentAsset, expand, v.x(), v.y()));
                     builder.addData(AssetPaths.model(modelId) + ".json",
-                            new ModelAsset(Optional.of(Identifier.fromNamespaceAndPath("enderscape-patch", parentId.getPath() + suffix)), asset.elements(),
+                            new ModelAsset(Optional.of(ResourceLocation.fromNamespaceAndPath("enderscape-patch", parentId.getPath() + suffix)), asset.elements(),
                                     asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
                 }
             }

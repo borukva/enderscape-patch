@@ -5,7 +5,7 @@ import eu.pb4.polymer.core.api.utils.PolymerSyncedObject;
 import net.bunten.enderscape.Enderscape;
 import net.bunten.enderscape.registry.EnderscapePotions;
 import net.bunten.enderscape.registry.EnderscapeStats;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatFormatter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class EnderscapeStatsMixin {
 
     @Overwrite
-    private static Identifier register(String name, StatFormatter formatter) {
+    private static ResourceLocation register(String name, StatFormatter formatter) {
         return PolymerStat.registerStat(name, formatter);
     }
 }

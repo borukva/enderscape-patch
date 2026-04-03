@@ -20,7 +20,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import org.slf4j.Logger;
@@ -45,10 +45,10 @@ public class EnderscapePolymerPatch implements ModInitializer {
         PolymerResourcePackUtils.addModAssets("enderscape");
         PolymerResourcePackUtils.addModAssets(MOD_ID);
         ResourcePackExtras.forDefault().addBridgedModelsFolder(
-                Identifier.fromNamespaceAndPath("enderscape", "block"),
-                Identifier.fromNamespaceAndPath("enderscape", "block_sign")
+                ResourceLocation.fromNamespaceAndPath("enderscape", "block"),
+                ResourceLocation.fromNamespaceAndPath("enderscape", "block_sign")
         );
-        ResourcePackExtras.forDefault().addBridgedModelsFolder(Identifier.fromNamespaceAndPath("enderscape", "entity"), (id, b) -> {
+        ResourcePackExtras.forDefault().addBridgedModelsFolder(ResourceLocation.fromNamespaceAndPath("enderscape", "entity"), (id, b) -> {
             return new ItemAsset(new BasicItemModel(id, List.of(new MapColorTintSource(0xFFFFFF))), new ItemAsset.Properties(true, true));
         });
 
@@ -88,7 +88,7 @@ public class EnderscapePolymerPatch implements ModInitializer {
         }
     }
 
-    public static Identifier id(String path) {
-        return Identifier.fromNamespaceAndPath("enderscape-patch", path);
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath("enderscape-patch", path);
     }
 }

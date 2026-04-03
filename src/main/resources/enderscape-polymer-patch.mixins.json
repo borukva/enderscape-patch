@@ -24,7 +24,7 @@
     "mod.EnderscapeEnchantmentEffectComponentsMixin",
     "mod.EnderscapeEntitiesMixin",
     "mod.EnderscapeEntityDataSerializersMixin",
-    "mod.EnderscapeEnvironmentAttributesMixin",
+
     "mod.EnderscapeGameEventsMixin",
     "mod.EnderscapeItemsMixin",
     "mod.EnderscapeMixin",

@@ -20,7 +20,7 @@ import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityLinkPacket;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public record BasePolymerEntity(LivingEntity entity) implements PolymerEntity {
-    public static final Identifier MODEL = Enderscape.id("model");
+    public static final ResourceLocation MODEL = Enderscape.id("model");
     public BasePolymerEntity {
         var model = (PolyModelInstance<EntityModel<LivingEntity>>) EntityModels.BY_TYPE.get(entity.getType());
         if (model != null) {

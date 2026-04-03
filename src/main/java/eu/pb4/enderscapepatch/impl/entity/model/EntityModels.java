@@ -14,9 +14,9 @@ import net.bunten.enderscape.Enderscape;
 import net.bunten.enderscape.entity.rubblemite.RubblemiteVariant;
 import net.bunten.enderscape.registry.EnderscapeEntities;
 import net.bunten.enderscape.registry.EnderscapeRubblemiteVariants;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
 import net.minecraft.world.entity.EntityType;
 import java.util.*;
 import java.util.function.Function;
@@ -50,13 +50,13 @@ public interface EntityModels {
         return m;
     });
 
-    static <T extends EntityModel<?>> PolyModelInstance<T> create(Function<ModelPart, T> modelCreator, LayerDefinition data, Identifier texture) {
+    static <T extends EntityModel<?>> PolyModelInstance<T> create(Function<ModelPart, T> modelCreator, LayerDefinition data, ResourceLocation texture) {
         var instance = PolyModelInstance.create(modelCreator, data, texture);
         ALL.add(instance);
         return instance;
     }
 
-    static <T extends EntityModel<?>> PolyModelInstance<T> withTexture(PolyModelInstance<T> original, Identifier texture) {
+    static <T extends EntityModel<?>> PolyModelInstance<T> withTexture(PolyModelInstance<T> original, ResourceLocation texture) {
         var instance = original.withTexture(texture);
         ALL.add(instance);
         return instance;
