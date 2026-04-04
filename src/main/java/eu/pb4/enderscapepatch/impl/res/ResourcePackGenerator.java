@@ -80,7 +80,9 @@ public class ResourcePackGenerator {
                     var asset = ModelAsset.fromJson(Objects.requireNonNull(resource.asString()));
                     if (asset.parent().isPresent()) {
                         var parentId = asset.parent().get();
-                        var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
+                        var parentData = builder.getDataOrSource(AssetPaths.model(parentId) + ".json");
+                        if (parentData == null) continue;
+                        var parentAsset = ModelAsset.fromJson(new String(parentData, StandardCharsets.UTF_8));
                         builder.addData(AssetPaths.model("enderscape-patch", parentId.getPath()) + ".json", ModelModifiers.expandModel(parentAsset, expansion));
                     }
                 }
