@@ -14,7 +14,6 @@ import java.util.function.UnaryOperator;
 public class EnderscapeDataComponentsMixin {
     @Inject(method = "register", at = @At("TAIL"))
     private static void polymerify(String string, UnaryOperator<ComponentType.Builder<?>> unaryOperator, CallbackInfoReturnable<ComponentType<?>> cir) {
-        System.out.println("[EnderscapePatch] Registering polymer data component: " + string);
         PolymerComponent.registerDataComponent(cir.getReturnValue());
     }
 }

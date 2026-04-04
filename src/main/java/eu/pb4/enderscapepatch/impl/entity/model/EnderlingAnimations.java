@@ -16,7 +16,7 @@ public class EnderlingAnimations {
 
     static {
         IDLE = Builder.create(4.0F).looping()
-            .addBoneAnimation("torso", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+            .addBoneAnimation("torso", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
                 new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
                 new Keyframe(0.75F, AnimationHelper.createTranslationalVector(0.0F, -0.5F, 0.0F), Interpolations.CUBIC),
                 new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
@@ -145,7 +145,7 @@ public class EnderlingAnimations {
                 new Keyframe(0.0F, AnimationHelper.createRotationalVector(11.0F, 0.0F, 0.0F), Interpolations.CUBIC),
                 new Keyframe(0.55F, AnimationHelper.createRotationalVector(11.0F, 0.0F, 0.0F), Interpolations.CUBIC)
             }))
-            .addBoneAnimation("body", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+            .addBoneAnimation("body", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
                 new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Interpolations.CUBIC),
                 new Keyframe(0.275F, AnimationHelper.createTranslationalVector(0.0F, 0.9F, 0.0F), Interpolations.CUBIC),
                 new Keyframe(0.55F, AnimationHelper.createTranslationalVector(0.0F, -1.0F, 0.0F), Interpolations.CUBIC)

@@ -6,7 +6,7 @@ import eu.pb4.factorytools.api.virtualentity.emuvanilla.animation.Transformation
 
 public class WraithAnimations {
 	    public static final AnimationDefinition IDLE = Builder.create(4.0F).looping()
-		.addBoneAnimation("body", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("body", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, -2.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(4.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
@@ -177,7 +177,7 @@ public class WraithAnimations {
 		.build();
 
 	    public static final AnimationDefinition WALK = Builder.create(4.0F).looping()
-		.addBoneAnimation("body", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("body", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, -2.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(4.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
@@ -355,7 +355,7 @@ public class WraithAnimations {
 			new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, -19.25F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
-		.addBoneAnimation("body", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("body", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
@@ -529,7 +529,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slashes_rot", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, -67.5F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slashes_rot", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slashes_rot", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, -27.0F), Interpolations.LINEAR)
 		}))
 		.addBoneAnimation("slashes_angle1", new Transformation(Targets.SCALE, new Keyframe[]{
@@ -538,7 +538,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slashes_angle2", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.65F, AnimationHelper.createRotationalVector(5.0F, 0.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slashes_angle2", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slashes_angle2", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.65F, AnimationHelper.createTranslationalVector(5.0F, 0.0F, 10.0F), Interpolations.LINEAR)
 		}))
 		.addBoneAnimation("slashes_angle2", new Transformation(Targets.SCALE, new Keyframe[]{
@@ -547,7 +547,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot5", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end5", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end5", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.65F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -571,7 +571,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot6", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end6", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end6", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -595,7 +595,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot7", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end7", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end7", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -619,7 +619,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot8", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end8", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end8", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.65F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -652,7 +652,7 @@ public class WraithAnimations {
 			new Keyframe(1.25F, AnimationHelper.createRotationalVector(0.0F, 19.25F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
-		.addBoneAnimation("body", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("body", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(1.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
@@ -826,7 +826,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slashes_rot", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, -110.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slashes_rot", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slashes_rot", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(10.0F, 0.0F, -22.0F), Interpolations.LINEAR)
 		}))
 		.addBoneAnimation("slashes_angle1", new Transformation(Targets.SCALE, new Keyframe[]{
@@ -835,7 +835,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slashes_angle2", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.65F, AnimationHelper.createRotationalVector(12.5F, 0.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slashes_angle2", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slashes_angle2", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.65F, AnimationHelper.createTranslationalVector(5.0F, 0.0F, 10.0F), Interpolations.LINEAR)
 		}))
 		.addBoneAnimation("slashes_angle2", new Transformation(Targets.SCALE, new Keyframe[]{
@@ -844,7 +844,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot5", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end5", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end5", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.65F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -868,7 +868,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot6", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end6", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end6", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -892,7 +892,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot7", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end7", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end7", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -916,7 +916,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot8", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end8", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end8", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.4F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.5F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.65F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -940,7 +940,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slashes_rotator2", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.65F, AnimationHelper.createRotationalVector(142.5F, 0.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slashes_rotator2", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slashes_rotator2", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.65F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR)
 		}))
 		.build();
@@ -968,7 +968,7 @@ public class WraithAnimations {
 			new Keyframe(1.65F, AnimationHelper.createRotationalVector(2.1F, -2.13F, -2.89F), Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
-		.addBoneAnimation("body", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("body", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
@@ -1126,13 +1126,13 @@ public class WraithAnimations {
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.LINEAR),
 			new Keyframe(0.6F, AnimationHelper.createRotationalVector(0.0F, -67.5F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slashes_rot", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slashes_rot", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.6F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, -27.0F), Interpolations.LINEAR)
 		}))
 		.addBoneAnimation("slash_rot1", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end1", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end1", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.6F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.85F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -1164,7 +1164,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot2", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end2", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end2", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.6F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.9F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -1188,7 +1188,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot3", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end3", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end3", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.6F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.9F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -1212,7 +1212,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot4", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end4", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end4", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.6F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.85F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -1236,7 +1236,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slashes_angle2", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.95F, AnimationHelper.createRotationalVector(12.5F, 0.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slashes_angle2", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slashes_angle2", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.95F, AnimationHelper.createTranslationalVector(-12.0F, 0.0F, 7.0F), Interpolations.LINEAR)
 		}))
 		.addBoneAnimation("slashes_angle2", new Transformation(Targets.SCALE, new Keyframe[]{
@@ -1245,7 +1245,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot5", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end5", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end5", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.8F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.95F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -1269,7 +1269,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot6", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end6", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end6", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.8F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -1293,7 +1293,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot7", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end7", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end7", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.8F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(1.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -1317,7 +1317,7 @@ public class WraithAnimations {
 		.addBoneAnimation("slash_rot8", new Transformation(Targets.ROTATE, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(7.5F, -15.0F, 0.0F), Interpolations.LINEAR)
 		}))
-		.addBoneAnimation("slash_end8", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("slash_end8", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.7F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 48.0F), Interpolations.CUBIC),
 			new Keyframe(0.8F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 20.2F), Interpolations.CUBIC),
 			new Keyframe(0.95F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 16.0F), Interpolations.CUBIC)
@@ -1346,7 +1346,7 @@ public class WraithAnimations {
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
-		.addBoneAnimation("body", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("body", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
@@ -1559,7 +1559,7 @@ public class WraithAnimations {
 			new Keyframe(1.25F, AnimationHelper.createRotationalVector(14.62F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(2.0F, AnimationHelper.createRotationalVector(27.12F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
-		.addBoneAnimation("tail2", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("tail2", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(2.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
 		.addBoneAnimation("tail2", new Transformation(Targets.SCALE, new Keyframe[]{
@@ -1588,7 +1588,7 @@ public class WraithAnimations {
 			new Keyframe(0.55F, AnimationHelper.createRotationalVector(-16.96F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(0.75F, AnimationHelper.createRotationalVector(-21.0F, 0.0F, 0.0F), Interpolations.CUBIC)
 		}))
-		.addBoneAnimation("body", new Transformation(Targets.TRANSLATE, new Keyframe[]{
+		.addBoneAnimation("body", new Transformation(Targets.MOVE_ORIGIN, new Keyframe[]{
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Interpolations.CUBIC),
 			new Keyframe(0.1F, AnimationHelper.createTranslationalVector(0.0F, 4.0F, 4.0F), Interpolations.CUBIC),
 			new Keyframe(0.25F, AnimationHelper.createTranslationalVector(0.0F, 5.0F, 6.1F), Interpolations.CUBIC),

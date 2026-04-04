@@ -42,33 +42,33 @@ public class EnderlingModel extends EntityModel<Enderling> {
         ModelData meshDefinition = new ModelData();
         ModelPartData partDefinition = meshDefinition.getRoot();
 
-        ModelPartData enderling = partDefinition.addChild("enderling", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
-        ModelPartData bodyRoot = enderling.addChild("body_root", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        ModelPartData body = bodyRoot.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -12.0F, 0.0F));
+        ModelPartData enderling = partDefinition.addChild("enderling", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
+        ModelPartData bodyRoot = enderling.addChild("body_root", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+        ModelPartData body = bodyRoot.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -12.0F, 0.0F));
 
         body.addChild("right_leg", ModelPartBuilder.create().uv(24, 16)
-                .cuboid(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, Dilation.NONE), ModelTransform.pivot(-2.0F, 0.0F, 0.0F));
+                .cuboid(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, Dilation.NONE), ModelTransform.origin(-2.0F, 0.0F, 0.0F));
         body.addChild("left_leg", ModelPartBuilder.create().uv(24, 16).mirrored()
-                .cuboid(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, Dilation.NONE).mirrored(false), ModelTransform.pivot(2.0F, 0.0F, 0.0F));
+                .cuboid(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, Dilation.NONE).mirrored(false), ModelTransform.origin(2.0F, 0.0F, 0.0F));
 
         ModelPartData torso = body.addChild("torso", ModelPartBuilder.create().uv(0, 16)
-                .cuboid(-4.0F, -12.0F, -2.0F, 8.0F, 12.0F, 4.0F, Dilation.NONE), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+                .cuboid(-4.0F, -12.0F, -2.0F, 8.0F, 12.0F, 4.0F, Dilation.NONE), ModelTransform.origin(0.0F, 0.0F, 0.0F));
         ModelPartData head = torso.addChild("h_head", ModelPartBuilder.create().uv(0, 0)
-                .cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, Dilation.NONE), ModelTransform.pivot(0.0F, -12.0F, 0.0F));
+                .cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, Dilation.NONE), ModelTransform.origin(0.0F, -12.0F, 0.0F));
 
         head.addChild("h_left_eyelid", ModelPartBuilder.create().uv(24, 30)
-                .cuboid(-1.5F, 0.25F, -2.25F, 3.0F, 1.0F, 2.0F, new Dilation(0.25F)), ModelTransform.pivot(2.5F, -3.25F, -1.75F));
+                .cuboid(-1.5F, 0.25F, -2.25F, 3.0F, 1.0F, 2.0F, new Dilation(0.25F)), ModelTransform.origin(2.5F, -3.25F, -1.75F));
         head.addChild("h_right_eyelid", ModelPartBuilder.create().uv(24, 30)
-                .cuboid(-1.5F, 0.25F, -2.25F, 3.0F, 1.0F, 2.0F, new Dilation(0.25F)), ModelTransform.pivot(-2.5F, -3.25F, -1.75F));
+                .cuboid(-1.5F, 0.25F, -2.25F, 3.0F, 1.0F, 2.0F, new Dilation(0.25F)), ModelTransform.origin(-2.5F, -3.25F, -1.75F));
         head.addChild("h_left_eye_glare", ModelPartBuilder.create().uv(0, 32)
-                .cuboid(0.0F, -1.0F, 0.0F, 6.0F, 1.0F, 0.0F, Dilation.NONE), ModelTransform.pivot(4.0F, -2.0F, -4.0F));
+                .cuboid(0.0F, -1.0F, 0.0F, 6.0F, 1.0F, 0.0F, Dilation.NONE), ModelTransform.origin(4.0F, -2.0F, -4.0F));
         head.addChild("h_right_eye_glare", ModelPartBuilder.create().uv(0, 32)
-                .cuboid(-6.0F, -1.0F, 0.0F, 6.0F, 1.0F, 0.0F, Dilation.NONE), ModelTransform.pivot(-4.0F, -2.0F, -4.0F));
+                .cuboid(-6.0F, -1.0F, 0.0F, 6.0F, 1.0F, 0.0F, Dilation.NONE), ModelTransform.origin(-4.0F, -2.0F, -4.0F));
 
         torso.addChild("right_arm", ModelPartBuilder.create().uv(32, 0)
-                .cuboid(-2.0F, -1.0F, -1.0F, 2.0F, 12.0F, 2.0F, Dilation.NONE), ModelTransform.pivot(-4.0F, -11.0F, 0.0F));
+                .cuboid(-2.0F, -1.0F, -1.0F, 2.0F, 12.0F, 2.0F, Dilation.NONE), ModelTransform.origin(-4.0F, -11.0F, 0.0F));
         torso.addChild("left_arm", ModelPartBuilder.create().uv(32, 0).mirrored()
-                .cuboid(0.0F, -1.0F, -1.0F, 2.0F, 12.0F, 2.0F, Dilation.NONE).mirrored(false), ModelTransform.pivot(4.0F, -11.0F, 0.0F));
+                .cuboid(0.0F, -1.0F, -1.0F, 2.0F, 12.0F, 2.0F, Dilation.NONE).mirrored(false), ModelTransform.origin(4.0F, -11.0F, 0.0F));
 
         return TexturedModelData.of(meshDefinition, 64, 64);
     }
@@ -83,16 +83,10 @@ public class EnderlingModel extends EntityModel<Enderling> {
             head.yaw += (EntityValueExtraction.getRelativeHeadYaw(state) * (MathHelper.PI / 180)) / 2;
         }
 
-        if (state.attacking) {
-            if (state.rightSlash) {
-                rightAttackAnimation.apply(state.rightAttackAnimationState, age);
-            } else {
-                leftAttackAnimation.apply(state.leftAttackAnimationState, age);
-            }
-        } else {
-            idleAnimation.apply(state.idleAnimationState, age);
-            walkAnimation.apply(state.walkAnimationState, age);
-            chaseAnimation.apply(state.chaseAnimationState, age);
-        }
+        idleAnimation.apply(state.idleAnimationState, age);
+        walkAnimation.apply(state.walkAnimationState, age);
+        chaseAnimation.apply(state.chaseAnimationState, age);
+        rightAttackAnimation.apply(state.rightAttackAnimationState, age);
+        leftAttackAnimation.apply(state.leftAttackAnimationState, age);
     }
 }
