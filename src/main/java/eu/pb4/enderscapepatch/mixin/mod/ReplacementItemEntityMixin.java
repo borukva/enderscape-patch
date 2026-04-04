@@ -10,22 +10,22 @@ import java.util.UUID;
 import eu.pb4.enderscapepatch.impl.EnderscapePolymerPatch;
 import net.bunten.enderscape.entity.magnia.MagniaMoveable;
 import net.bunten.enderscape.entity.magnia.MagniaProperties;
-import net.bunten.enderscape.item.component.EntityMagnet;
+import net.bunten.enderscape.item.MagniaAttractorItem;
 import net.bunten.enderscape.registry.EnderscapeStats;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -40,19 +40,19 @@ public abstract class ReplacementItemEntityMixin extends Entity implements Magni
     @Shadow
     private int pickupDelay;
     @Shadow
-    private @Nullable UUID target;
+    private @Nullable UUID owner;
     @Unique
     private final ItemEntity entity = (ItemEntity) (Object) this;
     @Unique
-    private static final EntityDataAccessor<Integer> MAGNIA_COOLDOWN_DATA;
+    private static final TrackedData<Integer> MAGNIA_COOLDOWN_DATA;
 
     @Unique
-    private Vec3 lastDir = new Vec3(0, 0, 0);
+    private Vec3d lastDir = new Vec3d(0, 0, 0);
 
     @Shadow
-    public abstract ItemStack getItem();
+    public abstract ItemStack getStack();
 
-    public ReplacementItemEntityMixin(EntityType<?> type, Level world) {
+    public ReplacementItemEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
@@ -67,13 +67,13 @@ public abstract class ReplacementItemEntityMixin extends Entity implements Magni
         }, (item) -> {
             return true;
         }, (item) -> {
-            this.entity.setPickUpDelay(20);
+            this.entity.setPickupDelay(20);
             this.entity.setNoGravity(true);
             if (this.random.nextInt(16) == 0) {
-                Level patt0$temp = this.level();
-                if (patt0$temp instanceof ServerLevel) {
-                    ServerLevel server = (ServerLevel)patt0$temp;
-                    server.sendParticles(ParticleTypes.END_ROD, this.position().x, this.position().y + 0.5, this.position().z, 1, 0.30000001192092896, 0.3, 0.30000001192092896, 0.0);
+                World patt0$temp = this.getEntityWorld();
+                if (patt0$temp instanceof ServerWorld) {
+                    ServerWorld server = (ServerWorld)patt0$temp;
+                    server.spawnParticles(ParticleTypes.END_ROD, this.getEntityPos().x, this.getEntityPos().y + 0.5, this.getEntityPos().z, 1, 0.30000001192092896, 0.3, 0.30000001192092896, 0.0);
                 }
             }
 
@@ -83,15 +83,15 @@ public abstract class ReplacementItemEntityMixin extends Entity implements Magni
     }
 
     @Unique
-    public EntityDataAccessor<Integer> Enderscape$magniaCooldownData() {
+    public TrackedData<Integer> Enderscape$magniaCooldownData() {
         return MAGNIA_COOLDOWN_DATA;
     }
 
     @Inject(
         at = {@At("TAIL")},
-        method = {"defineSynchedData"}
+        method = {"initDataTracker"}
     )
-    public void Enderscape$addAdditionalSaveData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+    public void Enderscape$addAdditionalSaveData(DataTracker.Builder builder, CallbackInfo ci) {
         this.defineMagniaData(builder);
     }
 
@@ -101,30 +101,30 @@ public abstract class ReplacementItemEntityMixin extends Entity implements Magni
     )
     private void Enderscape$tick(CallbackInfo info) {
         MagniaMoveable.tickMagniaCooldown(this.entity);
-        var delta = entity.getDeltaMovement();
-        if (delta.lengthSqr() > 1e-5) {
+        var delta = entity.getVelocity();
+        if (delta.lengthSquared() > 1e-5) {
             lastDir = delta.normalize();
         }
     }
 
     @Inject(
         at = {@At("HEAD")},
-        method = {"playerTouch"},
+        method = {"onPlayerCollision"},
         cancellable = true
     )
-    private void Enderscape$playerTouch(Player player, CallbackInfo info) {
-        if (!this.level().isClientSide()) {
-            ItemStack stack = this.getItem();
+    private void Enderscape$playerTouch(PlayerEntity player, CallbackInfo info) {
+        if (!this.getEntityWorld().isClient()) {
+            ItemStack stack = this.getStack();
             int count = stack.getCount();
-            if (pickupDelay == 0 && (target == null || target.equals(player.getUUID())) && EntityMagnet.tryAddToBundle(player.getInventory(), stack)) {
-                player.take(this.entity, count);
+            if (this.pickupDelay == 0 && (this.owner == null || this.owner.equals(player.getUuid())) && MagniaAttractorItem.tryAddToBundle(player.getInventory(), stack)) {
+                player.sendPickup(this.entity, count);
                 if (stack.isEmpty()) {
                     this.discard();
                     stack.setCount(count);
                 }
 
-                player.awardStat(Stats.ITEM_PICKED_UP.get(stack.getItem()), count);
-                player.onItemPickup(this.entity);
+                player.increaseStat(Stats.PICKED_UP.getOrCreateStat(stack.getItem()), count);
+                player.triggerItemPickedUpByEntityCriteria(this.entity);
                 info.cancel();
             }
         }
@@ -134,21 +134,21 @@ public abstract class ReplacementItemEntityMixin extends Entity implements Magni
     @Inject(
         at = {@At(
     value = "INVOKE",
-    target = "Lnet/minecraft/world/entity/player/Player;awardStat(Lnet/minecraft/stats/Stat;I)V",
+    target = "Lnet/minecraft/entity/player/PlayerEntity;increaseStat(Lnet/minecraft/stat/Stat;I)V",
     shift = Shift.AFTER
 )},
-        method = {"playerTouch"}
+        method = {"onPlayerCollision"}
     )
-    private void Enderscape$awardItemsPulledStat(Player player, CallbackInfo info) {
-        if (player instanceof ServerPlayer server) {
+    private void Enderscape$awardItemsPulledStat(PlayerEntity player, CallbackInfo info) {
+        if (player instanceof ServerPlayerEntity server) {
             if (MagniaMoveable.wasMovedByMagnia(this.entity)) {
-                server.awardStat(EnderscapeStats.ITEMS_ATTRACTED, this.getItem().getCount());
+                server.increaseStat(EnderscapeStats.ITEMS_ATTRACTED, this.getStack().getCount());
             }
         }
 
     }
 
     static {
-        MAGNIA_COOLDOWN_DATA = new EntityDataAccessor<>(EnderscapePolymerPatch.FAKE_TRACKER_INDEX, EntityDataSerializers.INT);
+        MAGNIA_COOLDOWN_DATA = new TrackedData<>(EnderscapePolymerPatch.FAKE_TRACKER_INDEX, TrackedDataHandlerRegistry.INTEGER);
     }
 }

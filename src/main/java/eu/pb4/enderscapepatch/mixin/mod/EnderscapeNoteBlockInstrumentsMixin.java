@@ -1,7 +1,7 @@
 package eu.pb4.enderscapepatch.mixin.mod;
 
 import net.bunten.enderscape.registry.EnderscapeNoteBlockInstruments;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 

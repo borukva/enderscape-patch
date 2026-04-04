@@ -1,17 +1,17 @@
 package eu.pb4.enderscapepatch.impl.mixson;
 
 import eu.pb4.polymer.common.api.PolymerCommonUtils;
+import net.minecraft.resource.DirectoryResourcePack;
+import net.minecraft.resource.Resource;
+import net.minecraft.resource.ResourcePack;
+import net.minecraft.resource.ResourceType;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackResources;
-import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.PathPackResources;
-import net.minecraft.server.packs.resources.Resource;
 
-public record MutablePackMap(PackResources pack, PackType type, Map<ResourceLocation, Resource> overrides) implements Map<ResourceLocation, Resource> {
+public record MutablePackMap(ResourcePack pack, ResourceType type, Map<Identifier, Resource> overrides) implements Map<Identifier, Resource> {
     @Override
     public int size() {
         return 0;
@@ -24,7 +24,7 @@ public record MutablePackMap(PackResources pack, PackType type, Map<ResourceLoca
 
     @Override
     public boolean containsKey(Object key) {
-        return key instanceof ResourceLocation identifier && this.pack.getResource(type, identifier) != null || this.overrides.containsKey(key);
+        return key instanceof Identifier identifier && this.pack.open(type, identifier) != null || this.overrides.containsKey(key);
     }
 
     @Override
@@ -36,15 +36,15 @@ public record MutablePackMap(PackResources pack, PackType type, Map<ResourceLoca
     public Resource get(Object key) {
         if (this.overrides.containsKey(key)) return this.overrides.get(key);
 
-        if (key instanceof ResourceLocation identifier) {
-            return new Resource(this.pack, this.pack.getResource(PackType.CLIENT_RESOURCES, identifier));
+        if (key instanceof Identifier identifier) {
+            return new Resource(this.pack, this.pack.open(ResourceType.CLIENT_RESOURCES, identifier));
         }
         return null;
     }
 
     @Nullable
     @Override
-    public Resource put(ResourceLocation key, Resource value) {
+    public Resource put(Identifier key, Resource value) {
         return this.overrides.put(key, value);
     }
 
@@ -54,7 +54,7 @@ public record MutablePackMap(PackResources pack, PackType type, Map<ResourceLoca
     }
 
     @Override
-    public void putAll(@NotNull Map<? extends ResourceLocation, ? extends Resource> m) {
+    public void putAll(@NotNull Map<? extends Identifier, ? extends Resource> m) {
         overrides.putAll(m);
     }
 
@@ -65,7 +65,7 @@ public record MutablePackMap(PackResources pack, PackType type, Map<ResourceLoca
 
     @NotNull
     @Override
-    public Set<ResourceLocation> keySet() {
+    public Set<Identifier> keySet() {
         var set = new HashSet<>(overrides.keySet());
         findResources(type, "minecraft", (id, file) -> {
             set.add(id);
@@ -74,9 +74,9 @@ public record MutablePackMap(PackResources pack, PackType type, Map<ResourceLoca
         return set;
     }
 
-    private void findResources(PackType type, String namespace, PackResources.ResourceOutput consumer) {
+    private void findResources(ResourceType type, String namespace, ResourcePack.ResultConsumer consumer) {
         var root = PolymerCommonUtils.getClientJarRoot().resolve(type.getDirectory()).resolve(namespace);
-        PathPackResources.listPath(namespace, root, List.of(), consumer);
+        DirectoryResourcePack.findResources(namespace, root, List.of(), consumer);
     }
 
     @NotNull
@@ -87,8 +87,8 @@ public record MutablePackMap(PackResources pack, PackType type, Map<ResourceLoca
 
     @NotNull
     @Override
-    public Set<Entry<ResourceLocation, Resource>> entrySet() {
-        var set = new HashSet<Entry<ResourceLocation, Resource>>();
+    public Set<Entry<Identifier, Resource>> entrySet() {
+        var set = new HashSet<Entry<Identifier, Resource>>();
         findResources(type, "minecraft", (id, file) -> {
             set.add(Map.entry(id, new Resource(pack, file)));
         });

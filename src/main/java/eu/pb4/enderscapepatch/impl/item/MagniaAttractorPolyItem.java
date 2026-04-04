@@ -12,7 +12,7 @@ import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;
 
-public record NebuliteToolPolyItem() implements PolymerItem {
+public record MagniaAttractorPolyItem() implements PolymerItem {
     @Override
     public Item getPolymerItem(ItemStack itemStack, PacketContext packetContext) {
         return Items.TRIAL_KEY;
@@ -20,6 +20,9 @@ public record NebuliteToolPolyItem() implements PolymerItem {
 
     @Override
     public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context) {
+        out.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(List.of(), List.of(EnabledBooleanProperty.test(stack,
+                context.getPlayer() != null ? context.getPlayer().getEntityWorld() : null, context.getPlayer())), List.of(), List.of()));
+
         out.set(DataComponentTypes.MAX_DAMAGE, 13);
         out.set(DataComponentTypes.DAMAGE, 13 - stack.getItemBarStep());
 

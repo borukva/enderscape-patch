@@ -17,21 +17,20 @@ import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.block.Block;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spongepowered.asm.mixin.MixinEnvironment;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static net.minecraft.commands.Commands.literal;
+import static net.minecraft.server.command.CommandManager.literal;
 
 public class EnderscapePolymerPatch implements ModInitializer {
     public static final String MOD_ID = "enderscape-polymer-patch";
@@ -45,26 +44,26 @@ public class EnderscapePolymerPatch implements ModInitializer {
         PolymerResourcePackUtils.addModAssets("enderscape");
         PolymerResourcePackUtils.addModAssets(MOD_ID);
         ResourcePackExtras.forDefault().addBridgedModelsFolder(
-                ResourceLocation.fromNamespaceAndPath("enderscape", "block"),
-                ResourceLocation.fromNamespaceAndPath("enderscape", "block_sign")
+                Identifier.of("enderscape", "block"),
+                Identifier.of("enderscape", "block_sign")
         );
-        ResourcePackExtras.forDefault().addBridgedModelsFolder(ResourceLocation.fromNamespaceAndPath("enderscape", "entity"), (id, b) -> {
+        ResourcePackExtras.forDefault().addBridgedModelsFolder(Identifier.of("enderscape", "entity"), (id, b) -> {
             return new ItemAsset(new BasicItemModel(id, List.of(new MapColorTintSource(0xFFFFFF))), new ItemAsset.Properties(true, true));
         });
 
         ResourcePackGenerator.setup();
         MixsonPatcher.setup();
 
-        PolymerItemUtils.syncDefaultComponent(Items.SHULKER_SHELL, DataComponents.EQUIPPABLE);
+        PolymerItemUtils.syncDefaultComponent(Items.SHULKER_SHELL, DataComponentTypes.EQUIPPABLE);
 
         //SoundPatcher.convertAllVanillaBlockSoundsIntoServerSounds();
 
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             CommandRegistrationCallback.EVENT.register((dispatcher, a, b) -> {
                 dispatcher.register(literal("count_displays").executes(ctx -> {
-                    var player = ctx.getSource().getPlayerOrException();
+                    var player = ctx.getSource().getPlayerOrThrow();
                     var map = new Reference2IntOpenHashMap<Block>();
-                    for (var holder : ((HolderHolder) player.connection).polymer$getHolders()) {
+                    for (var holder : ((HolderHolder) player.networkHandler).polymer$getHolders()) {
                         if (holder.getAttachment() instanceof BlockAwareAttachment attachment) {
                             map.put(attachment.getBlockState().getBlock(), map.getInt(attachment.getBlockState().getBlock()) + 1);
                         }
@@ -72,14 +71,14 @@ public class EnderscapePolymerPatch implements ModInitializer {
                     var entries = new ArrayList<>(map.reference2IntEntrySet());
                     entries.sort(Comparator.comparing(Reference2IntMap.Entry::getIntValue));
                     for (var entry : entries.reversed()) {
-                        player.sendSystemMessage(Component.literal(BuiltInRegistries.BLOCK.getKey(entry.getKey()).toString() + " -> " + entry.getIntValue()));
+                        player.sendMessage(Text.literal(Registries.BLOCK.getId(entry.getKey()).toString() + " -> " + entry.getIntValue()));
                     }
 
                     return 0;
                 }));
                 dispatcher.register(literal("count_model_types").executes(ctx -> {
                     for (var entry : BlockModelType.values()) {
-                        ctx.getSource().sendSystemMessage(Component.literal(entry.name() + " -> " + PolymerBlockResourceUtils.getBlocksLeft(entry)));
+                        ctx.getSource().sendMessage(Text.literal(entry.name() + " -> " + PolymerBlockResourceUtils.getBlocksLeft(entry)));
                     }
 
                     return 0;
@@ -88,7 +87,7 @@ public class EnderscapePolymerPatch implements ModInitializer {
         }
     }
 
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath("enderscape-patch", path);
+    public static Identifier id(String path) {
+        return Identifier.of("enderscape-patch", path);
     }
 }

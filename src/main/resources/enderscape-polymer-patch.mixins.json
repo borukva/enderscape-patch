@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractOvergrowthBlockAccessor",
-    "AgeableMobAccessor",
     "DataTrackerBuilderMixin",
     "DataTrackerMixin",
     "DirectionSetAccessor",
@@ -13,10 +12,8 @@
     "LivingEntityMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayNetworkingMixin",
-    "TorchBlockAccessor",
     "mod.DrifterMixin",
     "mod.DriftJellyBlockMixin",
-    "mod.EnderscapeAttributesMixin",
     "mod.EnderscapeBlockEntitiesMixin",
     "mod.EnderscapeBlocksMixin",
     "mod.EnderscapeCreativeModeTabMixin",
@@ -24,7 +21,6 @@
     "mod.EnderscapeEnchantmentEffectComponentsMixin",
     "mod.EnderscapeEntitiesMixin",
     "mod.EnderscapeEntityDataSerializersMixin",
-
     "mod.EnderscapeGameEventsMixin",
     "mod.EnderscapeItemsMixin",
     "mod.EnderscapeMixin",
@@ -35,15 +31,13 @@
     "mod.EnderscapePotionsMixin",
     "mod.EnderscapeRegistriesMixin",
     "mod.EnderscapeStatsMixin",
+    "mod.MagniaAttractorItemMixin",
     "mod.MagniaMoveableMixin",
     "mod.ReplacementAbstractMinecartMixin",
     "mod.ReplacementExperienceOrbMixin",
     "mod.ReplacementItemEntityMixin",
     "mod.ReplacementLivingEntityMixin",
-    "mod.RubblemiteMixin",
-    "mod.RustleMixin",
-    "mod.WraithMixin",
-    "mod.EnderlingMixin"
+    "mod.RubblemiteMixin"
   ],
   "injectors": {
     "defaultRequire": 1
