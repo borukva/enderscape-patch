@@ -20,7 +20,7 @@ public class EnderscapeItemsMixin {
     private static void polymerify(RegistryKey<Item> resourceKey, Function<Item.Settings, Item> function, Item.Settings properties, CallbackInfoReturnable<Item> cir) {
         PolymerItem polymerItem;
         var item = cir.getReturnValue();
-        if (item.components().has(EnderscapeDataComponents.ENABLED) || item.components().has(EnderscapeDataComponents.FUELED_TOOL)) {
+        if (item.getComponents().contains(EnderscapeDataComponents.ENABLED) || item.getComponents().contains(EnderscapeDataComponents.FUELED_TOOL)) {
             polymerItem = new NebuliteToolPolyItem();
         } else {
             polymerItem = new PolyBaseItem(item);

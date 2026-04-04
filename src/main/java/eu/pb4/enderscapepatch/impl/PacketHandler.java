@@ -47,12 +47,11 @@ public class PacketHandler {
             var vec2f = applyMovementSpeedFactors(getMovementInput(player.getPlayerInput()), player);
             var travel = new Vec3d(vec2f.x, 0, vec2f.y).normalize();
 
+            var power = payload.power();
             float sinYRot = MathHelper.sin((float) (player.getYaw() * (Math.PI / 180)));
             float cosYRot = MathHelper.cos((float) (player.getYaw() * (Math.PI / 180)));
-            float hozPower = player.isGliding() ? payload.horizontalPower() * payload.glideVelocityFactor() : payload.horizontalPower();
-            float verPower = player.isGliding() ? payload.verticalPower() * payload.glideVelocityFactor() : payload.verticalPower();
 
-            player.setVelocity(new Vec3d(travel.x * hozPower * cosYRot - travel.z * hozPower * sinYRot, verPower, travel.z * hozPower * cosYRot + travel.x * hozPower * sinYRot));
+            player.setVelocity(new Vec3d(travel.x * power.x * cosYRot - travel.z * power.x * sinYRot, power.y, travel.z * power.x * cosYRot + travel.x * power.x * sinYRot));
             player.networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(player));
         } else if (payloadx instanceof ClientboundDashJumpSoundPayload payload) {
             Entity entity = player.getEntityWorld().getEntityById(payload.entityId());
