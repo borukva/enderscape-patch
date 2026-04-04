@@ -16,9 +16,7 @@ import net.bunten.enderscape.entity.DashJumpUser;
 import net.bunten.enderscape.entity.EndTrialSpawnable;
 import net.bunten.enderscape.entity.magnia.MagniaMoveable;
 import net.bunten.enderscape.entity.magnia.MagniaProperties;
-import net.bunten.enderscape.item.MagniaAttractorItem;
-import net.bunten.enderscape.item.NebuliteToolContext;
-import net.bunten.enderscape.item.NebuliteToolItem;
+import net.bunten.enderscape.item.component.EntityMagnet;
 import net.bunten.enderscape.particle.DashJumpShockwaveParticleOptions;
 import net.bunten.enderscape.registry.EnderscapeEnchantments;
 import net.bunten.enderscape.registry.EnderscapeItemSounds;
@@ -208,14 +206,9 @@ public abstract class ReplacementLivingEntityMixin extends Entity implements Mag
             LivingEntity var5 = this.mob;
             if (var5 instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity)var5;
-                ItemStack stack = MagniaAttractorItem.getValidAttractor(player.getInventory());
-                if (!stack.isEmpty()) {
-                    NebuliteToolContext context = new NebuliteToolContext(stack, this.getEntityWorld(), player);
-                    if (stack.getItem() instanceof MagniaAttractorItem && NebuliteToolItem.fuelExceedsCost(context)) {
-                        MagniaAttractorItem.incrementEntitiesPulled(stack, 1);
-                        MagniaAttractorItem.tryUseFuel(context, 1 - MagniaAttractorItem.getTotalEntitiesPulledToUseFuel(stack, mob));
-                    }
-                }
+                ItemStack stack = EntityMagnet.getFirstUsableMagnet(player.getInventory());
+                if (!stack.isEmpty() && EntityMagnet.is(stack))
+                    stack.damage(1, mob, mob.getPreferredEquipmentSlot(stack));
             }
         }
 

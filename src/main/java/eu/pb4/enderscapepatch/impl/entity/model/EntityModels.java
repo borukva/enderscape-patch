@@ -20,7 +20,6 @@ public interface EntityModels {
     List<PolyModelInstance<?>> ALL = new ArrayList<>();
     PolyModelInstance<DrifterModel> DRIFTER = create(DrifterModel::new, DrifterModel.createLayer(), Enderscape.id("entity/drifter/drifter"));
     PolyModelInstance<DrifterModel> DRIFTER_WITH_JELLY = withTexture(DRIFTER, Enderscape.id("entity/drifter/drifter_with_jelly"));
-    PolyModelInstance<DriftletModel> DRIFTLET = create(DriftletModel::new, DriftletModel.createLayer(), Enderscape.id("entity/drifter/driftlet"));
 
     Map<RegistryKey<RubblemiteVariant>, PolyModelInstance<RubblemiteModel>> RUBBLEMITE = Util.make(new HashMap<>(), m -> {
         var instance = create(RubblemiteModel::new, RubblemiteModel.createLayer(), EnderscapeRubblemiteVariants.DEFAULT.getValue().withPrefixedPath("entity/rubblemite/"));
@@ -34,7 +33,6 @@ public interface EntityModels {
     IdentityHashMap<EntityType<?>, PolyModelInstance<?>> BY_TYPE = Util.make(() -> {
         var m = new IdentityHashMap<EntityType<?>, PolyModelInstance<?>>();
         m.put(EnderscapeEntities.DRIFTER, EntityModels.DRIFTER);
-        m.put(EnderscapeEntities.DRIFTLET, EntityModels.DRIFTLET);
         m.put(EnderscapeEntities.RUBBLEMITE, EntityModels.RUBBLEMITE.get(EnderscapeRubblemiteVariants.DEFAULT));
         m.put(EnderscapeEntities.RUSTLE, EntityModels.RUSTLE);
         return m;
