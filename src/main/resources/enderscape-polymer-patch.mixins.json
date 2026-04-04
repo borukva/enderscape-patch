@@ -37,7 +37,9 @@
     "mod.ReplacementExperienceOrbMixin",
     "mod.ReplacementItemEntityMixin",
     "mod.ReplacementLivingEntityMixin",
-    "mod.RubblemiteMixin"
+    "mod.RubblemiteMixin",
+    "mod.WraithMixin",
+    "mod.EnderlingMixin"
   ],
   "injectors": {
     "defaultRequire": 1
