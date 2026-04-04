@@ -15,7 +15,12 @@ loom {
 	mixin {
 		useLegacyMixinAp = false
 	}
-	splitEnvironmentSourceSets()
+	runs {
+		server {
+			runDir "run"
+			vmArg "-Dpolymer.downloadClientJar=true"
+		}
+	}
 }
 
 repositories {
