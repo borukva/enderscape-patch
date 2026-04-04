@@ -1,10 +1,10 @@
 package eu.pb4.enderscapepatch.mixin.mod;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import eu.pb4.enderscapepatch.impl.entity.BasePolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
-import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import net.bunten.enderscape.registry.EnderscapeEntities;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,7 +14,6 @@ import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EnderscapeEntities.class)
@@ -24,8 +23,8 @@ public class EnderscapeEntitiesMixin {
         PolymerEntityUtils.registerOverlay(cir.getReturnValue(), x -> new BasePolymerEntity((LivingEntity) x));
     }
 
-    @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/fabricmc/fabric/api/object/builder/v1/entity/FabricTrackedDataRegistry;register(Lnet/minecraft/util/Identifier;Lnet/minecraft/entity/data/TrackedDataHandler;)V"))
-    private static void noop(Identifier id, TrackedDataHandler<?> handler) {
-        // Don't register - prevents tracked_data_handler registry sync to clients
+    @WrapOperation(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/fabricmc/fabric/api/object/builder/v1/entity/FabricTrackedDataRegistry;register(Lnet/minecraft/util/Identifier;Lnet/minecraft/entity/data/TrackedDataHandler;)V"))
+    private static void noop(Identifier id, TrackedDataHandler<?> handler, Operation<Void> original) {
+        // Don't call original - prevents tracked_data_handler registry sync to clients
     }
 }
