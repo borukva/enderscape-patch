@@ -15,6 +15,12 @@ loom {
 	mixin {
 		useLegacyMixinAp = false
 	}
+	runs {
+		server {
+			runDir "run"
+		}
+	}
+	downloadServerAssetsAndJar()
 }
 
 repositories {
