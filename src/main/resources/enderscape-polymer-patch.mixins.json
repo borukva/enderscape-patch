@@ -41,7 +41,9 @@
     "mod.ReplacementItemEntityMixin",
     "mod.ReplacementLivingEntityMixin",
     "mod.RubblemiteMixin",
-    "mod.RustleMixin"
+    "mod.RustleMixin",
+    "mod.WraithMixin",
+    "mod.EnderlingMixin"
   ],
   "injectors": {
     "defaultRequire": 1
