@@ -45,6 +45,16 @@ public class ResourcePackGenerator {
         PolymerResourcePackUtils.RESOURCE_PACK_AFTER_INITIAL_CREATION_EVENT.register(ResourcePackGenerator::build);
     }
 
+    private static byte[] getModelData(ResourcePackBuilder builder, String path) {
+        var data = builder.getData(path);
+        if (data != null) return data;
+        try {
+            return builder.getDataOrSource(path);
+        } catch (Throwable e) {
+            return null;
+        }
+    }
+
     private static void build(ResourcePackBuilder builder) {
         final var expansion = new Vec3d(0.08, 0.08, 0.08);
         var atlas = AtlasAsset.builder();
@@ -80,7 +90,7 @@ public class ResourcePackGenerator {
                     var asset = ModelAsset.fromJson(Objects.requireNonNull(resource.asString()));
                     if (asset.parent().isPresent()) {
                         var parentId = asset.parent().get();
-                        var parentData = builder.getDataOrSource(AssetPaths.model(parentId) + ".json");
+                        var parentData = getModelData(builder, AssetPaths.model(parentId) + ".json");
                         if (parentData == null) continue;
                         var parentAsset = ModelAsset.fromJson(new String(parentData, StandardCharsets.UTF_8));
                         builder.addData(AssetPaths.model("enderscape-patch", parentId.getPath()) + ".json", ModelModifiers.expandModel(parentAsset, expansion));
@@ -102,7 +112,7 @@ public class ResourcePackGenerator {
 
                     if (asset.parent().isPresent()) {
                         var parentId = asset.parent().get();
-                        var parentData = builder.getDataOrSource(AssetPaths.model(parentId) + ".json");
+                        var parentData = getModelData(builder, AssetPaths.model(parentId) + ".json");
                         if (parentData == null) continue;
                         var parentAsset = ModelAsset.fromJson(new String(parentData, StandardCharsets.UTF_8));
                         builder.addData(AssetPaths.model("enderscape-patch", parentId.getPath() + suffix) + ".json",
