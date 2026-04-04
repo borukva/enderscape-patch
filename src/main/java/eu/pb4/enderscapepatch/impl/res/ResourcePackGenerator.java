@@ -46,13 +46,7 @@ public class ResourcePackGenerator {
     }
 
     private static byte[] getModelData(ResourcePackBuilder builder, String path) {
-        var data = builder.getData(path);
-        if (data != null) return data;
-        try {
-            return builder.getDataOrSource(path);
-        } catch (Throwable e) {
-            return null;
-        }
+        return builder.getData(path);
     }
 
     private static void build(ResourcePackBuilder builder) {
