@@ -2,7 +2,9 @@ package eu.pb4.enderscapepatch.mixin.mod;
 
 import eu.pb4.enderscapepatch.impl.entity.BasePolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
+import eu.pb4.polymer.rsm.api.RegistrySyncUtils;
 import net.bunten.enderscape.registry.EnderscapeEntities;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -23,5 +25,7 @@ public class EnderscapeEntitiesMixin {
     }
 
     @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/fabricmc/fabric/api/object/builder/v1/entity/FabricTrackedDataRegistry;register(Lnet/minecraft/util/Identifier;Lnet/minecraft/entity/data/TrackedDataHandler;)V"))
-    private static void noop(Identifier id, TrackedDataHandler<?> handler) {}
+    private static void noop(Identifier id, TrackedDataHandler<?> handler) {
+        // Don't register - prevents tracked_data_handler registry sync to clients
+    }
 }
