@@ -23,7 +23,9 @@ public class MixsonPatcher {
 
     public static void setup() {
         PolymerResourcePackUtils.RESOURCE_PACK_CREATION_EVENT.register(builder -> {
-            var pack = new DefaultResourcePackBuilder().withMetadataMap(METADATA_MAP).withNamespaces("minecraft", "realms").withRoot(PolymerCommonUtils.getClientJarRoot()).build(INFO);
+            var clientJarRoot = PolymerCommonUtils.getClientJarRoot();
+            if (clientJarRoot == null) return;
+            var pack = new DefaultResourcePackBuilder().withMetadataMap(METADATA_MAP).withNamespaces("minecraft", "realms").withRoot(clientJarRoot).build(INFO);
 
             var mut = new MutablePackMap(pack, ResourceType.CLIENT_RESOURCES, new HashMap<>());
             Mixson.runStandardEvents(mut);
