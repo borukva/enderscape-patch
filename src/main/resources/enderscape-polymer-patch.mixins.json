@@ -15,6 +15,7 @@
     "mod.DrifterMixin",
     "mod.DriftJellyBlockMixin",
     "mod.EnderscapeBlockEntitiesMixin",
+    "mod.EnderscapeAttributesMixin",
     "mod.EnderscapeBlocksMixin",
     "mod.EnderscapeCreativeModeTabMixin",
     "mod.EnderscapeDataComponentsMixin",
