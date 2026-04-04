@@ -29,12 +29,16 @@ public interface EntityModels {
         }
     });
     PolyModelInstance<RustleModel> RUSTLE = create(RustleModel::new, RustleModel.createLayer(), Enderscape.id("entity/rustle/rustle"));
+    PolyModelInstance<WraithModel> WRAITH = create(WraithModel::new, WraithModel.createLayer(), Enderscape.id("entity/wraith/wraith"));
+    PolyModelInstance<EnderlingModel> ENDERLING = create(EnderlingModel::new, EnderlingModel.createLayer(), Enderscape.id("entity/enderling/enderling"));
 
     IdentityHashMap<EntityType<?>, PolyModelInstance<?>> BY_TYPE = Util.make(() -> {
         var m = new IdentityHashMap<EntityType<?>, PolyModelInstance<?>>();
         m.put(EnderscapeEntities.DRIFTER, EntityModels.DRIFTER);
         m.put(EnderscapeEntities.RUBBLEMITE, EntityModels.RUBBLEMITE.get(EnderscapeRubblemiteVariants.DEFAULT));
         m.put(EnderscapeEntities.RUSTLE, EntityModels.RUSTLE);
+        m.put(EnderscapeEntities.WRAITH, EntityModels.WRAITH);
+        m.put(EnderscapeEntities.ENDERLING, EntityModels.ENDERLING);
         return m;
     });
 
