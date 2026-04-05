@@ -7,11 +7,14 @@ package eu.pb4.enderscapepatch.mixin;
 
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import eu.pb4.enderscapepatch.impl.entity.BasePolymerEntity;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
+import net.bunten.enderscape.registry.EnderscapeAttributes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,4 +29,9 @@ public abstract class LivingEntityMixin extends Entity {
     private boolean serverWorldIsJustAsGoodAsClientOne(boolean original) {
        return original || PolymerEntity.get(this) instanceof BasePolymerEntity;
    }
+
+    @ModifyReturnValue(method = "createLivingAttributes", at = @At("RETURN"))
+    private static DefaultAttributeContainer.Builder addEnderscapeAttributes(DefaultAttributeContainer.Builder builder) {
+        return builder.add(EnderscapeAttributes.BACKSTAB_DAMAGE).add(EnderscapeAttributes.STEALTH);
+    }
 }

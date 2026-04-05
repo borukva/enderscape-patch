@@ -1,5 +1,6 @@
 package eu.pb4.enderscapepatch.mixin.mod;
 
+import eu.pb4.enderscapepatch.impl.item.ToggableNebuliteToolPolyItem;
 import eu.pb4.enderscapepatch.impl.item.NebuliteToolPolyItem;
 import eu.pb4.enderscapepatch.impl.item.PolyBaseItem;
 import eu.pb4.polymer.core.api.item.PolymerItem;
@@ -20,7 +21,9 @@ public class EnderscapeItemsMixin {
     private static void polymerify(RegistryKey<Item> resourceKey, Function<Item.Settings, Item> function, Item.Settings properties, CallbackInfoReturnable<Item> cir) {
         PolymerItem polymerItem;
         var item = cir.getReturnValue();
-        if (item.getComponents().contains(EnderscapeDataComponents.ENABLED) || item.getComponents().contains(EnderscapeDataComponents.FUELED_TOOL)) {
+        if (item.getComponents().contains(EnderscapeDataComponents.ENABLED)) {
+            polymerItem = new ToggableNebuliteToolPolyItem();
+        } else if (item.getComponents().contains(EnderscapeDataComponents.FUELED_TOOL)) {
             polymerItem = new NebuliteToolPolyItem();
         } else {
             polymerItem = new PolyBaseItem(item);

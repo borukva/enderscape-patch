@@ -45,10 +45,6 @@ public class ResourcePackGenerator {
         PolymerResourcePackUtils.RESOURCE_PACK_AFTER_INITIAL_CREATION_EVENT.register(ResourcePackGenerator::build);
     }
 
-    private static byte[] getModelData(ResourcePackBuilder builder, String path) {
-        return builder.getData(path);
-    }
-
     private static void build(ResourcePackBuilder builder) {
         final var expansion = new Vec3d(0.08, 0.08, 0.08);
         var atlas = AtlasAsset.builder();
@@ -84,37 +80,28 @@ public class ResourcePackGenerator {
                     var asset = ModelAsset.fromJson(Objects.requireNonNull(resource.asString()));
                     if (asset.parent().isPresent()) {
                         var parentId = asset.parent().get();
-                        var parentData = getModelData(builder, AssetPaths.model(parentId) + ".json");
-                        if (parentData == null) continue;
-                        var parentAsset = ModelAsset.fromJson(new String(parentData, StandardCharsets.UTF_8));
+                        var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
                         builder.addData(AssetPaths.model("enderscape-patch", parentId.getPath()) + ".json", ModelModifiers.expandModel(parentAsset, expansion));
                     }
                 }
             }
         });
 
-        var uvLockedModels = BlockStateModelManager.UV_LOCKED_MODELS.get("enderscape");
-        if (uvLockedModels != null) {
-            for (var entry : uvLockedModels.entrySet()) {
-                var expand = EXPANDABLE.stream().anyMatch(expandable -> entry.getKey().contains(expandable) && entry.getKey().startsWith("block/")) ? expansion : Vec3d.ZERO;
-                for (var v : entry.getValue()) {
-                    var suffix = "_uvlock_" + v.x() + "_" + v.y();
-                    var modelId = v.model().withSuffixedPath(suffix);
-                    var modelData = builder.getData(AssetPaths.model(v.model()) + ".json");
-                    if (modelData == null) continue;
-                    var asset = ModelAsset.fromJson(new String(modelData, StandardCharsets.UTF_8));
+        for (var entry : BlockStateModelManager.UV_LOCKED_MODELS.get("enderscape").entrySet()) {
+            var expand = EXPANDABLE.stream().anyMatch(expandable -> entry.getKey().contains(expandable) && entry.getKey().startsWith("block/")) ? expansion : Vec3d.ZERO;
+            for (var v : entry.getValue()) {
+                var suffix = "_uvlock_" + v.x() + "_" + v.y();
+                var modelId = v.model().withSuffixedPath(suffix);
+                var asset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getData(AssetPaths.model(v.model()) + ".json")), StandardCharsets.UTF_8));
 
-                    if (asset.parent().isPresent()) {
-                        var parentId = asset.parent().get();
-                        var parentData = getModelData(builder, AssetPaths.model(parentId) + ".json");
-                        if (parentData == null) continue;
-                        var parentAsset = ModelAsset.fromJson(new String(parentData, StandardCharsets.UTF_8));
-                        builder.addData(AssetPaths.model("enderscape-patch", parentId.getPath() + suffix) + ".json",
-                                ModelModifiers.expandModelAndRotateUVLocked(parentAsset, expand, v.x(), v.y()));
-                        builder.addData(AssetPaths.model(modelId) + ".json",
-                                new ModelAsset(Optional.of(Identifier.of("enderscape-patch", parentId.getPath() + suffix)), asset.elements(),
-                                        asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
-                    }
+                if (asset.parent().isPresent()) {
+                    var parentId = asset.parent().get();
+                    var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
+                    builder.addData(AssetPaths.model("enderscape-patch", parentId.getPath() + suffix) + ".json",
+                            ModelModifiers.expandModelAndRotateUVLocked(parentAsset, expand, v.x(), v.y()));
+                    builder.addData(AssetPaths.model(modelId) + ".json",
+                            new ModelAsset(Optional.of(Identifier.of("enderscape-patch", parentId.getPath() + suffix)), asset.elements(),
+                                    asset.textures(), asset.display(), asset.guiLight(), asset.ambientOcclusion()).toBytes());
                 }
             }
         }

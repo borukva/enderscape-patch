@@ -17,6 +17,6 @@ public record EnabledBooleanProperty() implements BooleanProperty {
 
     @Override
     public MapCodec<? extends BooleanProperty> codec() {
-        return CODEC;
+        return MAP_CODEC;
     }
 }
