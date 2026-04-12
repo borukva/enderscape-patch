@@ -40,7 +40,8 @@
     "mod.ReplacementLivingEntityMixin",
     "mod.RubblemiteMixin",
     "mod.WraithMixin",
-    "mod.EnderlingMixin"
+    "mod.EnderlingMixin",
+    "mod.WatchmanMixin"
   ],
   "injectors": {
     "defaultRequire": 1

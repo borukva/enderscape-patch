@@ -31,6 +31,7 @@ public interface EntityModels {
     PolyModelInstance<RustleModel> RUSTLE = create(RustleModel::new, RustleModel.createLayer(), Enderscape.id("entity/rustle/rustle"));
     PolyModelInstance<WraithModel> WRAITH = create(WraithModel::new, WraithModel.createLayer(), Enderscape.id("entity/wraith/wraith"));
     PolyModelInstance<EnderlingModel> ENDERLING = create(EnderlingModel::new, EnderlingModel.createLayer(), Enderscape.id("entity/enderling/enderling"));
+    PolyModelInstance<WatchmanModel> WATCHMAN = create(WatchmanModel::new, WatchmanModel.createLayer(), Enderscape.id("entity/watchman/watchman"));
 
     IdentityHashMap<EntityType<?>, PolyModelInstance<?>> BY_TYPE = Util.make(() -> {
         var m = new IdentityHashMap<EntityType<?>, PolyModelInstance<?>>();
@@ -39,6 +40,7 @@ public interface EntityModels {
         m.put(EnderscapeEntities.RUSTLE, EntityModels.RUSTLE);
         m.put(EnderscapeEntities.WRAITH, EntityModels.WRAITH);
         m.put(EnderscapeEntities.ENDERLING, EntityModels.ENDERLING);
+        m.put(EnderscapeEntities.WATCHMAN, EntityModels.WATCHMAN);
         return m;
     });
 
