@@ -9,6 +9,7 @@ import net.minecraft.util.math.MathHelper;
 public class WatchmanModel extends EntityModel<Watchman> {
 
     private final ModelPart watchman;
+    private final ModelPart hHead;
 
     private final Animation idleAnimation;
     private final Animation walkAnimation;
@@ -20,6 +21,7 @@ public class WatchmanModel extends EntityModel<Watchman> {
     public WatchmanModel(ModelPart root) {
         super(root);
         this.watchman = root.getChild("watchman");
+        this.hHead = this.watchman.getChild("body_root").getChild("body").getChild("torso").getChild("h_head");
 
         idleAnimation = WatchmanAnimations.IDLE.createAnimation(root);
         walkAnimation = WatchmanAnimations.WALK.createAnimation(root);
@@ -337,13 +339,13 @@ public class WatchmanModel extends EntityModel<Watchman> {
             return;
         }
 
-        watchman.pitch += (state.getPitch() * (MathHelper.PI / 180)) / 2;
-        watchman.yaw += (EntityValueExtraction.getRelativeHeadYaw(state) * (MathHelper.PI / 180)) / 2;
-
         idleAnimation.apply(state.idleAnimationState, age);
         walkAnimation.apply(state.walkAnimationState, age);
         lanternSmackAnimation.apply(state.lanternSmackAnimationState, age);
         summonWraithsAnimation.apply(state.summonWraithsAnimationState, age);
         lanternPushAnimation.apply(state.lanternPushAnimationState, age);
+
+        hHead.pitch += (state.getPitch() * (MathHelper.PI / 180)) / 2;
+        hHead.yaw += (EntityValueExtraction.getRelativeHeadYaw(state) * (MathHelper.PI / 180)) / 2;
     }
 }

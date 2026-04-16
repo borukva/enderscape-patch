@@ -7,13 +7,7 @@ import net.bunten.enderscape.entity.enderling.Enderling;
 import net.minecraft.util.math.MathHelper;
 
 public class EnderlingModel extends EntityModel<Enderling> {
-    private final ModelPart enderling;
-    private final ModelPart bodyRoot;
-    private final ModelPart body;
-    private final ModelPart torso;
     private final ModelPart head;
-    private final ModelPart rightArm;
-    private final ModelPart leftArm;
 
     private final Animation idleAnimation;
     private final Animation walkAnimation;
@@ -23,13 +17,7 @@ public class EnderlingModel extends EntityModel<Enderling> {
 
     public EnderlingModel(ModelPart root) {
         super(root);
-        enderling = root.getChild("enderling");
-        bodyRoot = enderling.getChild("body_root");
-        body = bodyRoot.getChild("body");
-        torso = body.getChild("torso");
-        head = torso.getChild("h_head");
-        rightArm = torso.getChild("right_arm");
-        leftArm = torso.getChild("left_arm");
+        head = root.getChild("enderling").getChild("body_root").getChild("body").getChild("torso").getChild("h_head");
 
         idleAnimation = EnderlingAnimations.IDLE.createAnimation(root);
         walkAnimation = EnderlingAnimations.WALK.createAnimation(root);
