@@ -23,11 +23,11 @@ public class EnderlingMixin {
         var self = (Enderling)(Object)this;
         int age = ((net.minecraft.entity.Entity) self).age;
         switch (self.getState()) {
-            case IDLE -> self.idleAnimationState.startIfStopped(age);
-            case WALK -> self.walkAnimationState.startIfStopped(age);
-            case CHASE -> self.chaseAnimationState.startIfStopped(age);
-            case RIGHT_SLASH -> self.rightAttackAnimationState.startIfStopped(age);
-            case LEFT_SLASH -> self.leftAttackAnimationState.startIfStopped(age);
+            case IDLE -> self.idleAnimationState.startIfNotRunning(age);
+            case WALK -> self.walkAnimationState.startIfNotRunning(age);
+            case CHASE -> self.chaseAnimationState.startIfNotRunning(age);
+            case RIGHT_SLASH -> self.rightAttackAnimationState.startIfNotRunning(age);
+            case LEFT_SLASH -> self.leftAttackAnimationState.startIfNotRunning(age);
         }
     }
 }

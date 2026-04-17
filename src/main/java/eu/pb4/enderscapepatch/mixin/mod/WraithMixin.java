@@ -23,11 +23,11 @@ public class WraithMixin {
         var self = (Wraith)(Object)this;
         int age = ((net.minecraft.entity.Entity) self).age;
         switch (self.getState()) {
-            case IDLE -> self.idleAnimationState.startIfStopped(age);
-            case WALK -> self.walkAnimationState.startIfStopped(age);
-            case RIGHT_SLASH -> self.rightSlashAnimationState.startIfStopped(age);
-            case LEFT_SLASH -> self.leftSlashAnimationState.startIfStopped(age);
-            case SPIN_SLASH -> self.spinSlashAnimationState.startIfStopped(age);
+            case IDLE -> self.idleAnimationState.startIfNotRunning(age);
+            case WALK -> self.walkAnimationState.startIfNotRunning(age);
+            case RIGHT_SLASH -> self.rightSlashAnimationState.startIfNotRunning(age);
+            case LEFT_SLASH -> self.leftSlashAnimationState.startIfNotRunning(age);
+            case SPIN_SLASH -> self.spinSlashAnimationState.startIfNotRunning(age);
         }
     }
 }

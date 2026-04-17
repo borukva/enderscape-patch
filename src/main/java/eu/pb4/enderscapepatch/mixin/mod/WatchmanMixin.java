@@ -23,11 +23,11 @@ public class WatchmanMixin {
         var self = (Watchman)(Object)this;
         int age = ((net.minecraft.entity.Entity) self).age;
         switch (self.getState()) {
-            case IDLE -> self.idleAnimationState.startIfStopped(age);
-            case WALK -> self.walkAnimationState.startIfStopped(age);
-            case LANTERN_SMACK -> self.lanternSmackAnimationState.startIfStopped(age);
-            case SUMMON_WRAITHS -> self.summonWraithsAnimationState.startIfStopped(age);
-            case LANTERN_PUSH -> self.lanternPushAnimationState.startIfStopped(age);
+            case IDLE -> self.idleAnimationState.startIfNotRunning(age);
+            case WALK -> self.walkAnimationState.startIfNotRunning(age);
+            case LANTERN_SMACK -> self.lanternSmackAnimationState.startIfNotRunning(age);
+            case SUMMON_WRAITHS -> self.summonWraithsAnimationState.startIfNotRunning(age);
+            case LANTERN_PUSH -> self.lanternPushAnimationState.startIfNotRunning(age);
         }
     }
 }
