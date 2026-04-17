@@ -20,6 +20,14 @@ public class EnderlingMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void ensureAnimations(CallbackInfo ci) {
-        ((Enderling)(Object)this).ensureClientAnimationState();
+        var self = (Enderling)(Object)this;
+        int age = ((net.minecraft.entity.Entity) self).age;
+        switch (self.getState()) {
+            case IDLE -> self.idleAnimationState.startIfStopped(age);
+            case WALK -> self.walkAnimationState.startIfStopped(age);
+            case CHASE -> self.chaseAnimationState.startIfStopped(age);
+            case RIGHT_SLASH -> self.rightAttackAnimationState.startIfStopped(age);
+            case LEFT_SLASH -> self.leftAttackAnimationState.startIfStopped(age);
+        }
     }
 }

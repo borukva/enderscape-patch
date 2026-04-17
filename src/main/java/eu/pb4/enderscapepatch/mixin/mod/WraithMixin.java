@@ -20,6 +20,14 @@ public class WraithMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void ensureAnimations(CallbackInfo ci) {
-        ((Wraith)(Object)this).ensureClientAnimationState();
+        var self = (Wraith)(Object)this;
+        int age = ((net.minecraft.entity.Entity) self).age;
+        switch (self.getState()) {
+            case IDLE -> self.idleAnimationState.startIfStopped(age);
+            case WALK -> self.walkAnimationState.startIfStopped(age);
+            case RIGHT_SLASH -> self.rightSlashAnimationState.startIfStopped(age);
+            case LEFT_SLASH -> self.leftSlashAnimationState.startIfStopped(age);
+            case SPIN_SLASH -> self.spinSlashAnimationState.startIfStopped(age);
+        }
     }
 }

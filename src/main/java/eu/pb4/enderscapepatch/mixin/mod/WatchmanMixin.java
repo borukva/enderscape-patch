@@ -20,6 +20,14 @@ public class WatchmanMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void ensureAnimations(CallbackInfo ci) {
-        ((Watchman)(Object)this).ensureClientAnimationState();
+        var self = (Watchman)(Object)this;
+        int age = ((net.minecraft.entity.Entity) self).age;
+        switch (self.getState()) {
+            case IDLE -> self.idleAnimationState.startIfStopped(age);
+            case WALK -> self.walkAnimationState.startIfStopped(age);
+            case LANTERN_SMACK -> self.lanternSmackAnimationState.startIfStopped(age);
+            case SUMMON_WRAITHS -> self.summonWraithsAnimationState.startIfStopped(age);
+            case LANTERN_PUSH -> self.lanternPushAnimationState.startIfStopped(age);
+        }
     }
 }
